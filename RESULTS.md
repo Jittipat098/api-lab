@@ -16,3 +16,21 @@ Test: `test_log_in_without_a_session`
 **Conclusion:**
 
 All three attempts successfully created a user (HTTP 201), but login failed with HTTP 401 because separate requests did not share session cookies. This demonstrates why using a persistent requests.Session is important when working with the API behind a load balancer.
+
+## Step 0.16: Bug hunt checkpoint
+
+- Blocks tested for the number of excluded tools:
+  - 0 tools excluded: PASSED
+  - 1 tool excluded: PASSED
+  - 2 tools excluded: PASSED
+  - 3 tools excluded: XFAIL
+
+## Defect report
+
+- **Title:** Excluding all three pizza tools returns HTTP 500.
+- **Request:** POST `/api/pizza` with `excludedTools` set to `["Knife", "Pizza cutter", "Scissors"]`.
+- **Expected result:** HTTP 400 Bad Request with a JSON error message explaining that no tool is available.
+- **Actual result:** HTTP 500 Internal Server Error. The response body is empty.
+- **Severity:** High (suggested). The API returns an unexpected server error for an input it should handle gracefully.
+- **Test:** `test_all_tools_excluded_returns_bad_request`
+- **Status:** XFAIL (known defect).
