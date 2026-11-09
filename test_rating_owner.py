@@ -9,7 +9,7 @@ def test_other_user_cannot_read_rating(api, auth, other_auth, rating):
     owner_res = api.get(path, headers=auth)
     assert owner_res.status_code == 200
     assert owner_res.json() == rating
-    print("READ status:", res.status_code)
+
 
 
 
@@ -23,7 +23,7 @@ def test_other_user_cannot_update_rating(api, auth, other_auth, rating):
     owner_res = api.get(path, headers=auth)
     assert owner_res.status_code == 200
     assert owner_res.json() == rating
-    print("UPDATE status:", res.status_code)
+
 
 
 # A different user cannot delete another user's rating.
@@ -36,4 +36,3 @@ def test_other_user_cannot_delete_rating(api, auth, other_auth, rating):
     owner_res = api.get(path, headers=auth)
     assert owner_res.status_code == 200
     assert owner_res.json() == rating
-    print("DELETE status:", res.status_code)
