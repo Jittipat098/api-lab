@@ -34,3 +34,29 @@ All three attempts successfully created a user (HTTP 201), but login failed with
 - **Severity:** High (suggested). The API returns an unexpected server error for an input it should handle gracefully.
 - **Test:** `test_all_tools_excluded_returns_bad_request`
 - **Status:** XFAIL (known defect).
+
+### Part A4: Rating Ownership Tests
+
+Tested whether a different authenticated user can access a rating created by its owner.
+
+| Test | Actual HTTP Status | Result |
+|---|---:|---|
+| Read another user's rating | 404 | Passed |
+| Update another user's rating | 400 | Passed |
+| Delete another user's rating | 400 | Passed |
+
+**Conclusion:** A different authenticated user cannot read, update, or delete the rating. All three ownership tests passed.
+
+
+### Part A4: Rating Ownership
+
+Tested whether a different authenticated user could access
+another user's rating.
+
+| Action | HTTP Status | Result |
+|---|---:|---|
+| Read another user's rating | 404 | Rejected |
+| Update another user's rating | 400 | Rejected |
+| Delete another user's rating | 400 | Rejected |
+
+All three ownership tests passed.
